@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 class GraphBase(ABC):
-    def __init__(self):
+    def __init__(self, act_id: str = None):
         self.access_token = self.search_access_token
         self.routes = [
             "campaigns",
@@ -23,7 +23,7 @@ class GraphBase(ABC):
         ]
         self.HOST = "https://graph.facebook.com/"
         self.base_url = f'{self.HOST}{self.versions[-1]}/'
-        self.account_id = 'act_352973074777141'
+        self.account_id = act_id
         self.limited_resources_mode = False
 
     @property
@@ -42,7 +42,7 @@ class GraphBase(ABC):
             params = {'access_token': self.access_token}
         elif params.get('access_token') is None:
             params['access_token'] = self.access_token
-        return params\
+        return params
 
 
 class GraphBaseMixin(GraphBase):
@@ -78,4 +78,3 @@ class GraphBaseMixin(GraphBase):
                 return response_data
         else:
             print(f'Error in process {url}')
-
