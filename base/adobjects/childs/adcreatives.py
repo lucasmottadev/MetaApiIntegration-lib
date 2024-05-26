@@ -1,10 +1,5 @@
 from base.adobjects.father.account_object import Account, ChildMixin, Child
 
-"""
-Example de wrap route: 
-
-"""
-
 
 class Adcreatives(ChildMixin):
     def __init__(self):
