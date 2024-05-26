@@ -6,7 +6,7 @@ class Adcreatives(ChildMixin):
         self.me = Child(name='adcreatives', route_name='adcreatives')
         ChildMixin.__init__(self, self.me)
 
-    def search_adcreatives(self, adcreative_id, route):
+    def search_adcreatives(self, adcreative_id: str, route: str):
         params = {
             'limit': 99999,
             'time_increment': 1,

@@ -78,3 +78,11 @@ class GraphBaseMixin(GraphBase):
                 return response_data
         else:
             print(f'Error in process {url}')
+
+    def get_accounts_linked_token(self):
+        params = {
+            'limit': 99999,
+            'fields': 'id'
+        }
+        url = f'{self.base_url}/me/adaccounts'
+        return self.basic_search(params=params, url=url)

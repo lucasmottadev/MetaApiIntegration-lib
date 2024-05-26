@@ -19,7 +19,7 @@ class ExampleChild(ChildMixin):
         self.me = Child(name='adcreatives', route_name='adcreatives')
         ChildMixin.__init__(self, self.me)
 
-    def search_adcreatives(self, example_child_id, route):
+    def search_adcreatives(self, example_child_id: str, route: str):
         """
 
         Creation suggestion if 'limited_resources_mode parameter' is True

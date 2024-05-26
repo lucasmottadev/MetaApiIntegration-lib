@@ -2,6 +2,7 @@ from base.base import GraphBaseMixin
 
 
 class Account(GraphBaseMixin):
+    # Account node representation.
     def __init__(self):
         super().__init__()
         self.urls_routes = {
@@ -15,12 +16,23 @@ class Account(GraphBaseMixin):
 
 
 class Child:
+    # Class to represent a child of an account
     def __init__(self, name, route_name):
         self.name = name
         self.route_name = route_name
 
 
 class ChildMixin(Account):
+    """
+
+    Class representing a mixin child of an account, add wrap to many operations, as:
+        - create father
+        - search ids
+        - build routes
+
+    More details of implementation, see 'example_child.py' in 'childs'
+
+    """
     def __init__(self, child: Child):
         super().__init__()
         self.child = child
@@ -39,7 +51,7 @@ class ChildMixin(Account):
         }
         return self.account.generic_search(params=params, route=self.child.route_name, process_return=True)
 
-    def build_route(self, child_id, route):
+    def build_route(self, child_id: str, route: str):
         return f'{self.base_url}{child_id}/{route}'
 
     def build_routes(self, child_id_list):
