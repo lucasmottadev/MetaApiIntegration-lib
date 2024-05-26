@@ -44,6 +44,6 @@ class ChildMixin(Account):
 
     def build_routes(self, child_id_list):
         routes_url = []
-        for adcreative_id in child_id_list:
-            routes_url.append(self.build_route(adcreative_id, self.child.route_name))
+        for child_id in child_id_list:
+            routes_url.append(self.build_route(child_id, self.child.route_name))
         return routes_url
