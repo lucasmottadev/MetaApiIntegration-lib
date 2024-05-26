@@ -5,7 +5,10 @@ from pathlib import Path
 
 
 class GraphBase(ABC):
-    def __init__(self, act_id: str = None):
+    def __init__(self,
+                 account_id: str = None,
+                 limited_resources_mode: bool = False
+                 ):
         self.access_token = self.search_access_token
         self.routes = [
             "campaigns",
@@ -23,8 +26,12 @@ class GraphBase(ABC):
         ]
         self.HOST = "https://graph.facebook.com/"
         self.base_url = f'{self.HOST}{self.versions[-1]}/'
-        self.account_id = act_id
-        self.limited_resources_mode = False
+        self.account_id = account_id
+
+        if self.account_id is None:
+            self.limited_resources_mode = True
+        else:
+            self.limited_resources_mode = limited_resources_mode
 
     @property
     def search_access_token(self) -> str:
@@ -46,8 +53,14 @@ class GraphBase(ABC):
 
 
 class GraphBaseMixin(GraphBase):
-    def __init__(self):
-        super().__init__()
+    def __init__(self,
+                 account_id: str = None,
+                 limited_resources_mode: bool = False
+                 ):
+        super().__init__(account_id, limited_resources_mode)
+        if self.account_id is None:
+            if self.limited_resources_mode:
+                self.account_ids = self.get_accounts_linked_token()
 
     def basic_search(self,
                      params: dict = None,
