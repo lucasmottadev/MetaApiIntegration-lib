@@ -9,7 +9,7 @@ class GraphBase(ABC):
                  account_id: str = None,
                  limited_resources_mode: bool = False
                  ):
-        self.access_token = self.search_access_token
+        self.access_token = self.search_access_token()
         self.routes = [
             "campaigns",
             "adsets",
@@ -33,10 +33,10 @@ class GraphBase(ABC):
         else:
             self.limited_resources_mode = limited_resources_mode
 
-    @property
-    def search_access_token(self) -> str:
+    @staticmethod
+    def search_access_token() -> str:
         __path__ = Path(__file__)
-        while __path__.name != 'IntegrationMeta':
+        while __path__.name != 'MetaApiIntegration':
             __path__ = __path__.parent
         return open(f'{__path__}/base/keys/access_token.txt').read().strip()
 
